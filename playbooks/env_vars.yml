@@ -1,0 +1,25 @@
+target: ubuntu_22_04
+utils:
+  python:
+    enabled: true
+    version: "3.12"
+  aws:
+    enabled: true
+  azure:
+    enabled: true
+  gcloud:
+    enabled: true
+  docker:
+    enabled: true
+    version: "20.10.11"
+  kubernetes:
+    version: "1.29.0"
+    kubectl: true
+    kubeadm: false
+    kubelet: false
+  jq_yq:
+    enabled: true
+  helm:
+    enabled: true
+  
+

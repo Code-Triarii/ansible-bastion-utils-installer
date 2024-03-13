@@ -1,0 +1,55 @@
+- name: Check if target variable is in accepted ones
+  set_fact:
+    ubuntu_target: "{{ target in ['ubuntu_22_04', 'ubuntu_20_04', 'ubuntu_23_10'] }}"
+    kube_version: "{{ utils.kubernetes.version }}"
+
+# Ref: https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
+
+- name: Install Google Cloud public signing key
+  shell: |
+    mkdir -p -m 755 /etc/apt/keyrings
+    curl -fsSL https://pkgs.k8s.io/core:/stable:/v{{ kube_version.split('.')[0:2] | join('.') }}/deb/Release.key \
+    | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+  become: true
+  when: ubuntu_target
+
+- name: Add Kubernetes repository
+  shell: |
+    echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.29/deb/ /' | \
+    tee /etc/apt/sources.list.d/kubernetes.list
+  become: true
+  when: ubuntu_target
+
+- name: Update APT and cache
+  apt:
+    update_cache: true
+  become: true
+  when: ubuntu_target
+
+- name: Install kubeadm
+  apt:
+    name:
+      - kubeadm={{ kube_version }}
+    state: present
+  become: true
+  when: ubuntu_target and utils.kubernetes.kubeadm
+
+- name: Install kubelet
+  apt:
+    name: kubelet={{ kube_version }}
+    state: present
+  become: true
+  when: ubuntu_target and utils.kubernetes.kubelet
+
+- name: Install kubectl
+  apt:
+    name: kubectl={{ kube_version }}
+    state: present
+  become: true
+  when: ubuntu_target and utils.kubernetes.kubectl
+
+- name: Configure Kubectl Autocompletion
+  shell: |
+    kubectl completion bash >/etc/bash_completion.d/kubectl
+  become: true
+  when: ubuntu_target and utils.kubernetes.kubectl

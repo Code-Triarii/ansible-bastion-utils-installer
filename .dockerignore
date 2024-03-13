@@ -1,0 +1,8 @@
+.vscode
+.github
+.git
+docs
+LICENSE
+README.md
+.pre-commit-config.yaml
+Dockerfile
