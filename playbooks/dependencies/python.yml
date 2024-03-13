@@ -21,7 +21,6 @@
     python3 -m pip install --upgrade pip
     when: ubuntu_target
 
-
 - name: Install pipenv
   shell: |
     sudo -H pip3 install pipenv

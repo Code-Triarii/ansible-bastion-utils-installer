@@ -53,3 +53,28 @@
     kubectl completion bash >/etc/bash_completion.d/kubectl
   become: true
   when: ubuntu_target and utils.kubernetes.kubectl
+
+- name: Download and extract kubecolor
+  unarchive:
+    src: "https://github.com/hidetatz/kubecolor/releases/download/v0.0.25/kubecolor_0.0.25_Linux_x86_64.tar.gz"
+    dest: "/usr/local/bin"
+    remote_src: true
+    mode: '0555'
+    creates: "/usr/local/bin/kubecolor"
+  become: true
+  when: ubuntu_target and utils.kubernetes.kubectl
+
+- name: Add alias for kubecolor in .bashrc
+  lineinfile:
+    path: "/home/{{ ansible_user }}/.bashrc"
+    line: 'alias kubectl="kubecolor"'
+    create: true
+    when: ubuntu_target and utils.kubernetes.kubectl
+
+- name: Add alias for kubecolor in .bashrc root
+  lineinfile:
+    path: "/root/.bashrc"
+    line: 'alias kubectl="kubecolor"'
+    create: true
+  become: true
+  when: ubuntu_target and utils.kubernetes.kubectl

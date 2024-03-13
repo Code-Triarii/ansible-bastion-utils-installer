@@ -5,18 +5,19 @@
  -->
 
 <!-- PROJECT LOGO -->
+
 # 📝 Ansible Bastion Utils Installer
 
-
 <!-- TECNOLOGIES -->
+
 ![Ansible Badge](https://img.shields.io/badge/Ansible-E00?logo=ansible&logoColor=fff&style=for-the-badge)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 
 This project allows to install some of the most common dependencies in the host machine for server OS.
 Starting with Ubuntu 22.04 LTS
 
-
 ## 📚 Table of contents
+
 - [📝 Ansible Bastion Utils Installer](#-ansible-bastion-utils-installer)
   - [📚 Table of contents](#-table-of-contents)
   - [Structure](#structure)
@@ -35,6 +36,7 @@ Starting with Ubuntu 22.04 LTS
 ## Structure
 
 The repository configuration is simple, it contains the main ansible files:
+
 - `ansible.cfg`
 - `playbooks`: contains the different Ansible resources for installation.
   - `dependencies`: this playbooks are configured to be executed for a set of targets.
@@ -46,9 +48,9 @@ The repository configuration is simple, it contains the main ansible files:
 ### 🔨 Prerequisites
 
 - For docker execution:
-  - ``Docker`` - Only for the docker execution approach. [Official installation instructions](https://docs.docker.com/engine/install/)
+  - `Docker` - Only for the docker execution approach. [Official installation instructions](https://docs.docker.com/engine/install/)
 - For local ansible execution:
-  - ``Python 3.10+``
+  - `Python 3.10+`
   - `Ansible`
 
 ```bash
@@ -82,8 +84,8 @@ ansible-playbook playbooks/main.yml -i "localhost" -u $(id -un) -K
 ansible-playbook playbooks/main.yml -i "<remote-host>" -u ubuntu --private-key priv.key
 ```
 
-> [!NOTE] Do not forget to fetch the `priv.key` and apply `chmod 400 priv.key` or it will raise an error.
-> [!TIP] You can add the environment variable `ANSIBLE_HOST_KEY_CHECKING=False` before the command execution if you face some issues. However, this is not a good security practice and should be avoided for production usage.
+> \[!NOTE\] Do not forget to fetch the `priv.key` and apply `chmod 400 priv.key` or it will raise an error.
+> \[!TIP\] You can add the environment variable `ANSIBLE_HOST_KEY_CHECKING=False` before the command execution if you face some issues. However, this is not a good security practice and should be avoided for production usage.
 
 #### Docker environment
 
@@ -102,18 +104,18 @@ docker run -it --rm -v $(pwd):/app -w /app ansible:1.0 ansible-playbook playbook
 
 [🔝 Back to top](#-ansible-bastion-utils-installer)
 
-
 <!-- ROADMAP -->
+
 ## 📍 Roadmap
 
 - [x] Add Documentation
 - [x] Support automatic installations for Ubuntu familiy (20.04, 22.04 and 23.10)
 - [x] Contenerized execution prepared.
 
-
 [🔝 Back to top](#-ansible-bastion-utils-installer)
 
 <!-- CONTRIBUTING -->
+
 ## 📎 Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated** :chart:.
@@ -138,6 +140,7 @@ If you have a suggestion that would make this better, please fork the repo and c
 [🔝 Back to top](#-ansible-bastion-utils-installer)
 
 <!-- LICENSE -->
+
 ## 📃 License
 
 Distributed under the `Apache 2.0` License. See `LICENSE` for more information.
@@ -145,6 +148,7 @@ Distributed under the `Apache 2.0` License. See `LICENSE` for more information.
 [🔝 Back to top](#-ansible-bastion-utils-installer)
 
 <!-- CONTACT -->
+
 ## 👥 Contact
 
 <div align="center">

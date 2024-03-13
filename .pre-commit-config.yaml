@@ -25,7 +25,6 @@ repos:
       - id: docformatter
         args: [--in-place, --wrap-summaries=99, --wrap-descriptions=99]
 
-
   # yaml formatting
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v3.0.0-alpha.6
@@ -61,7 +60,6 @@ repos:
         args:
           - --skip=logs/**,data/**,*.ipynb,poetry.lock,pdm.lock
           # - --ignore-words-list=abc,def
-
 
   - repo: https://github.com/zricethezav/gitleaks
     rev: v8.18.1

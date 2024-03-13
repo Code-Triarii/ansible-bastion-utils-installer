@@ -12,7 +12,7 @@ RUN apt-get update \
   && DEBIAN_FRONTEND=noninteractive apt-get install -y python3 python3-pip ansible sudo
 
 # This are Ansible requirements for being able to use AWS tasks/modules
-RUN ansible-galaxy collection install amazon.aws 
+RUN ansible-galaxy collection install amazon.aws
 RUN pip3 install boto3 botocore
 
 RUN apt-get update \
