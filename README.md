@@ -86,8 +86,11 @@ ansible-playbook playbooks/main.yml -i "localhost" -u $(id -un) -K
 ansible-playbook playbooks/main.yml -i "<remote-host>" -u ubuntu --private-key priv.key
 ```
 
-> \[!NOTE\] Do not forget to fetch the `priv.key` and apply `chmod 400 priv.key` or it will raise an error.
-> \[!TIP\] You can add the environment variable `ANSIBLE_HOST_KEY_CHECKING=False` before the command execution if you face some issues. However, this is not a good security practice and should be avoided for production usage.
+> \[!NOTE\] 
+> Do not forget to fetch the `priv.key` and apply `chmod 400 priv.key` or it will raise an error.
+
+> \[!TIP\] 
+> You can add the environment variable `ANSIBLE_HOST_KEY_CHECKING=False` before the command execution if you face some issues. However, this is not a good security practice and should be avoided for production usage.
 
 #### Docker environment
 
