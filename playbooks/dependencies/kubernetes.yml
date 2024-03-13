@@ -15,8 +15,8 @@
 
 - name: Add Kubernetes repository
   shell: |
-    echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.29/deb/ /' | \
-    tee /etc/apt/sources.list.d/kubernetes.list
+    echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.29/deb/ /' \
+    | tee /etc/apt/sources.list.d/kubernetes.list
   become: true
   when: ubuntu_target
 
@@ -28,25 +28,51 @@
 
 - name: Install kubeadm
   apt:
-    name:
-      - kubeadm={{ kube_version }}
+    name: "kubeadm={{ kube_version }}"
     state: present
   become: true
   when: ubuntu_target and utils.kubernetes.kubeadm
+  register: kubeadm_result
+  ignore_errors: true
+
+- name: Install kubeadm if specific version is not available
+  apt:
+    name: kubeadm
+    state: present
+  become: true
+  when: ubuntu_target and utils.kubernetes.kubeadm and kubeadm_result.failed
 
 - name: Install kubelet
   apt:
-    name: kubelet={{ kube_version }}
+    name: "kubelet={{ kube_version }}"
     state: present
   become: true
   when: ubuntu_target and utils.kubernetes.kubelet
+  register: kubelet_result
+  ignore_errors: true
+
+- name: Install kubelet if specific version is not available
+  apt:
+    name: kubelet
+    state: present
+  become: true
+  when: ubuntu_target and utils.kubernetes.kubelet and kubelet_result.failed
 
 - name: Install kubectl
   apt:
-    name: kubectl={{ kube_version }}
+    name: "kubectl={{ kube_version }}"
     state: present
   become: true
   when: ubuntu_target and utils.kubernetes.kubectl
+  register: kubectl_result
+  ignore_errors: true
+
+- name: Install kubectl if specific version is not available
+  apt:
+    name: kubectl
+    state: present
+  become: true
+  when: ubuntu_target and utils.kubernetes.kubectl and kubectl_result.failed
 
 - name: Configure Kubectl Autocompletion
   shell: |
@@ -59,7 +85,7 @@
     src: "https://github.com/hidetatz/kubecolor/releases/download/v0.0.25/kubecolor_0.0.25_Linux_x86_64.tar.gz"
     dest: "/usr/local/bin"
     remote_src: true
-    mode: '0555'
+    mode: "0555"
     creates: "/usr/local/bin/kubecolor"
   become: true
   when: ubuntu_target and utils.kubernetes.kubectl
@@ -69,7 +95,7 @@
     path: "/home/{{ ansible_user }}/.bashrc"
     line: 'alias kubectl="kubecolor"'
     create: true
-    when: ubuntu_target and utils.kubernetes.kubectl
+  when: ubuntu_target and utils.kubernetes.kubectl
 
 - name: Add alias for kubecolor in .bashrc root
   lineinfile:

@@ -1,6 +1,6 @@
 ---
 - name: Install dependencies for targets
-  hosts: all
+  hosts: localhost
   vars_files:
     - env_vars.yml
 
@@ -12,39 +12,39 @@
     - name: Python
       ansible.builtin.include_tasks:
         file: dependencies/python.yml
-      when: python.enabled
+      when: utils.python.enabled
 
     - name: Install aws
       ansible.builtin.include_tasks:
         file: dependencies/aws.yml
-      when: aws.enabled
+      when: utils.aws.enabled
 
     - name: Install azure
       ansible.builtin.include_tasks:
         file: dependencies/azure.yml
-      when: azure.enabled
+      when: utils.azure.enabled
 
     - name: Install gcloud
       ansible.builtin.include_tasks:
         file: dependencies/gcloud.yml
-      when: gcloud.enabled
+      when: utils.gcloud.enabled
 
     - name: Install jq-yq
       ansible.builtin.include_tasks:
         file: dependencies/jq-yq.yml
-      when: jq_yq.enabled
+      when: utils.jq_yq.enabled
 
     - name: Install docker
       ansible.builtin.include_tasks:
         file: dependencies/docker.yml
-      when: docker.enabled
+      when: utils.docker.enabled
 
     - name: Install kubernetes
       ansible.builtin.include_tasks:
         file: dependencies/kubernetes.yml
-      when: kubernetes.enabled
+      when: utils.kubernetes.enabled
 
     - name: Install helm
       ansible.builtin.include_tasks:
         file: dependencies/helm.yml
-      when: helm.enabled
+      when: utils.helm.enabled

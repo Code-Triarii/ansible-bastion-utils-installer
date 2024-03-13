@@ -31,7 +31,7 @@
   become: true
   when: ubuntu_target
 
-- name: Agregar el repositorio de Docker
+- name: Add Docker repository
   apt_repository:
     repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
     state: present
@@ -44,12 +44,20 @@
   become: true
   when: ubuntu_target
 
-- name: Instalar Docker
+- name: Install specific Docker version
   shell: |
     apt-get -y install docker-ce={{ dockerVersion }} docker-ce-cli={{ dockerVersion }} \
     containerd.io docker-buildx-plugin docker-compose-plugin
   become: true
   when: ubuntu_target
+  register: result
+  ignore_errors: true
+
+- name: Install Docker if specific version is not available
+  shell: |
+    apt-get -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+  become: true
+  when: ubuntu_target and result.failed
 
 - name: Include user in docker group
   shell: |

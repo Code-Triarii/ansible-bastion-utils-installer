@@ -16,6 +16,8 @@
 This project allows to install some of the most common dependencies in the host machine for server OS.
 Starting with Ubuntu 22.04 LTS
 
+</div>
+
 ## 📚 Table of contents
 
 - [📝 Ansible Bastion Utils Installer](#-ansible-bastion-utils-installer)
@@ -109,7 +111,7 @@ docker run -it --rm -v $(pwd):/app -w /app ansible:1.0 ansible-playbook playbook
 ## 📍 Roadmap
 
 - [x] Add Documentation
-- [x] Support automatic installations for Ubuntu familiy (20.04, 22.04 and 23.10)
+- [x] Support automatic installations for Ubuntu family (20.04, 22.04 and 23.10)
 - [x] Contenerized execution prepared.
 
 [🔝 Back to top](#-ansible-bastion-utils-installer)

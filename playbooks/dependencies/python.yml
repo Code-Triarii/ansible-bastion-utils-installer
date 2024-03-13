@@ -2,12 +2,21 @@
   set_fact:
     ubuntu_target: "{{ target in ['ubuntu_22_04', 'ubuntu_20_04', 'ubuntu_23_10'] }}"
 
-- name: Install Python3
+- name: Install specific Python3 version
   apt:
-    name: "python{{ bastion.utils.python.version }}"
+    name: "python{{ utils.python.version }}"
     state: present
   become: true
   when: ubuntu_target
+  register: result
+  ignore_errors: true
+
+- name: Install Python3 if specific version is not available
+  apt:
+    name: python3
+    state: present
+  become: true
+  when: ubuntu_target and result.failed
 
 - name: Install pip
   apt:
@@ -19,7 +28,7 @@
 - name: Upgrade pip
   shell: |
     python3 -m pip install --upgrade pip
-    when: ubuntu_target
+  when: ubuntu_target
 
 - name: Install pipenv
   shell: |

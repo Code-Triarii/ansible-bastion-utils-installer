@@ -14,6 +14,7 @@ utils:
     version: "20.10.11"
   kubernetes:
     version: "1.29.0"
+    enabled: true
     kubectl: true
     kubeadm: false
     kubelet: false
