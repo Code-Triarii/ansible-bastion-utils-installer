@@ -92,7 +92,6 @@ ansible-playbook playbooks/main.yml -i "<remote-host>" -u ubuntu --private-key p
 > \[!TIP\]
 > You can add the environment variable `ANSIBLE_HOST_KEY_CHECKING=False` before the command execution if you face some issues. However, this is not a good security practice and should be avoided for production usage.
 
-
 ![Ansible execution](./docs/img/ansible-execution.png)
 
 #### Docker environment
