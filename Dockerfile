@@ -22,7 +22,7 @@ RUN apt-get update \
 
 ##############################################################
 
-# We define the main arguments used accross user creation and workdir stablishment.
+# We define the main arguments used across user creation and workdir stablishment.
 # The idea to have placeholders for the UID, GID, USER and GROUP is avoid volume conflict issues.
 # For design simplicity we execute the playbook sharing the project code with a volume in the local path to the target container /app folder.
 # If the hardcode those values, if the any of those are different in the container than the user that will execute in the host machine, permissions problems will apprear.
